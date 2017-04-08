@@ -28,6 +28,8 @@ proguard/
 *.iws
 .idea/
 .idea/vcs.xml
+.img/
+.css/
 
 #Gradle
 .gradletasknamecache
