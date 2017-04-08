@@ -8,7 +8,8 @@ import java.util.List;
 public abstract class Filter {
     private List<String> values;
 
-    private Filter(){};
+    private Filter() {
+    }
 
     public Filter(List<String> values) {
         this.values = values;

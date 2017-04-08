@@ -32,7 +32,7 @@ public class Dataset {
 
     private Header filterHeader(HeaderFilter filter) {
         if (filter == null)
-            return null;
+            return this.header;
 
         List<Integer> indexs = header.indexOf(filter);
 
@@ -49,10 +49,11 @@ public class Dataset {
     }
 
     private List<Row> filterRow(HeaderFilter headerFilter, RowFilter... rowFilters) {
-        if (rowFilters == null)
-            return null;
-
         return this.rows.stream().filter(row -> {
+
+            if (rowFilters.length == 0)
+                return true;
+
             for (RowFilter filter : rowFilters) {
                 int idx = this.header.indexOf(filter.getHeaderName());
                 String value = row.getValues().get(idx);

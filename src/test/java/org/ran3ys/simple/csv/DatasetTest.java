@@ -2,6 +2,7 @@ package org.ran3ys.simple.csv;
 
 import org.junit.Test;
 
+import javax.xml.crypto.Data;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
@@ -35,6 +36,38 @@ public class DatasetTest {
         String expected = "a,c" + System.lineSeparator()
                 + "1,3" + System.lineSeparator();
         assertEquals(expected, filtered.toString());
+    }
+
+    @Test
+    public void filterHeaderFilterOnly() throws Exception {
+        Dataset dataset = simpleData();
+        HeaderFilter headerFilter = new HeaderFilter(Arrays.asList("b","c"));
+
+        Dataset filtered = dataset.filter(headerFilter);
+
+        assertNotNull(filtered);
+
+        String expected = "b,c" + System.lineSeparator()
+                + "2,3" + System.lineSeparator()
+                + "5,6" + System.lineSeparator();
+
+        assertEquals(expected, filtered.toString());
+    }
+
+    @Test
+    public void filterRowFilterOnly() throws Exception {
+        Dataset dataset = simpleData();
+
+        RowFilter rowFilter = new RowFilter("b", Arrays.asList("5"));
+
+        Dataset filtered = dataset.filter(null, rowFilter);
+
+        assertNotNull(filtered);
+
+        String expected = "a,b,c" + System.lineSeparator()
+                + "4,5,6" + System.lineSeparator();
+        assertEquals(expected, filtered.toString());
+
     }
 
     @Test
