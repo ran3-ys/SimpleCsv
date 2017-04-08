@@ -3,6 +3,7 @@ package org.ran3ys.simple.csv;
 import org.ran3ys.simple.csv.filter.HeaderFilter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -10,6 +11,10 @@ import java.util.List;
  */
 public class Header {
     private List<String> names;
+
+    public Header(String names) {
+        this.names = Arrays.asList(names.split(","));
+    }
 
     public Header(List<String> names) {
         this.names = names;

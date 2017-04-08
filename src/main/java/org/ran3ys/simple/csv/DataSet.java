@@ -82,6 +82,10 @@ public class DataSet {
         }).collect(Collectors.toList());
     }
 
+    public void join(DataSet dataset) {
+        this.rows.addAll(dataset.getRows());
+    }
+
     @Override
     public String toString() {
         String val = "";
