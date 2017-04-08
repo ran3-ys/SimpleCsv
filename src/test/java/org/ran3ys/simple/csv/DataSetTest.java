@@ -12,24 +12,24 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Created by ran3-ys on 2017/04/08.
  */
-public class DatasetTest {
+public class DataSetTest {
 
-    public Dataset simpleData() {
+    public DataSet simpleData() {
         Header header = new Header(Arrays.asList("a", "b", "c"));
         Row row1 = new Row(Arrays.asList("1", "2", "3"));
         Row row2 = new Row(Arrays.asList("4", "5", "6"));
 
-        return new Dataset(header, Arrays.asList(row1, row2));
+        return new DataSet(header, Arrays.asList(row1, row2));
     }
 
     @Test
     public void filter() throws Exception {
-        Dataset dataset = simpleData();
+        DataSet dataSet = simpleData();
 
         HeaderFilter headerFilter = new HeaderFilter(Arrays.asList("a", "c"));
         RowFilter rowFilter = new RowFilter("a", Arrays.asList("1"));
 
-        Dataset filtered = dataset.filter(headerFilter, rowFilter);
+        DataSet filtered = dataSet.filter(headerFilter, rowFilter);
 
         assertNotNull(filtered);
 
@@ -39,11 +39,21 @@ public class DatasetTest {
     }
 
     @Test
+    public void headerFilterNoResult() throws Exception {
+        DataSet dataSet = simpleData();
+        HeaderFilter headerFilter = new HeaderFilter(Arrays.asList("A"));
+
+        DataSet filtered = dataSet.filter(headerFilter);
+        assertNotNull(filtered);
+        assertEquals(0, filtered.getRows().size());
+    }
+
+    @Test
     public void filterHeaderFilterOnly() throws Exception {
-        Dataset dataset = simpleData();
+        DataSet dataSet = simpleData();
         HeaderFilter headerFilter = new HeaderFilter(Arrays.asList("b","c"));
 
-        Dataset filtered = dataset.filter(headerFilter);
+        DataSet filtered = dataSet.filter(headerFilter);
 
         assertNotNull(filtered);
 
@@ -56,11 +66,11 @@ public class DatasetTest {
 
     @Test
     public void filterRowFilterOnly() throws Exception {
-        Dataset dataset = simpleData();
+        DataSet dataSet = simpleData();
 
         RowFilter rowFilter = new RowFilter("b", Arrays.asList("5"));
 
-        Dataset filtered = dataset.filter(null, rowFilter);
+        DataSet filtered = dataSet.filter(null, rowFilter);
 
         assertNotNull(filtered);
 
@@ -72,13 +82,13 @@ public class DatasetTest {
 
     @Test
     public void testToString() throws Exception {
-        Dataset dataset = simpleData();
+        DataSet dataSet = simpleData();
 
         String expected = "a,b,c" + System.lineSeparator()
                 + "1,2,3" + System.lineSeparator()
                 + "4,5,6" + System.lineSeparator();
 
-        assertEquals(expected, dataset.toString());
+        assertEquals(expected, dataSet.toString());
     }
 
 }

@@ -10,27 +10,31 @@ import java.util.stream.Collectors;
 /**
  * Created by ran3-ys on 2017/04/07.
  */
-public class Dataset {
+public class DataSet {
     private Header header;
     private List<Row> rows;
-    private boolean useHeader;
 
-    public Dataset(Header header, List<Row> rows) {
+    DataSet(){
+    }
+
+    DataSet(Header header, List<Row> rows) {
         this.header = header;
         this.rows = rows;
-        this.useHeader = true;
     }
 
-    public Dataset(List<Row> rows) {
-        this.rows = rows;
-        this.useHeader = false;
-    }
-
-    public Dataset filter(HeaderFilter headerFilter, RowFilter... rowFilters) {
+    DataSet filter(HeaderFilter headerFilter, RowFilter... rowFilters) {
         Header header = filterHeader(headerFilter);
         List<Row> rows = filterRow(headerFilter, rowFilters);
 
-        return new Dataset(header, rows);
+        return new DataSet(header, rows);
+    }
+
+    public Header getHeader() {
+        return header;
+    }
+
+    public List<Row> getRows() {
+        return rows;
     }
 
     private Header filterHeader(HeaderFilter filter) {
@@ -39,7 +43,7 @@ public class Dataset {
 
         List<Integer> indexs = header.indexOf(filter);
 
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         for (int idx : indexs) {
             list.add(header.getNames().get(idx));
         }
@@ -53,6 +57,10 @@ public class Dataset {
 
     private List<Row> filterRow(HeaderFilter headerFilter, RowFilter... rowFilters) {
         return this.rows.stream().filter(row -> {
+
+            if (headerFilter != null &&
+                    this.header.indexOf(headerFilter).isEmpty())
+                return false;
 
             if (rowFilters.length == 0)
                 return true;
@@ -81,8 +89,8 @@ public class Dataset {
             val += header.toString() + System.lineSeparator();
 
         val += rows.stream().collect(StringBuilder::new,
-                (sb, str) -> sb.append(str + System.lineSeparator()),
-                (sb1, sb2) -> sb1.append(sb2)).toString();
+                (sb, str) -> sb.append(str).append(System.lineSeparator()),
+                StringBuilder::append).toString();
 
         return val;
     }

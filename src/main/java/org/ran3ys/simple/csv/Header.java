@@ -24,7 +24,7 @@ public class Header {
     }
 
     public List<Integer> indexOf(HeaderFilter headerFilter) {
-        List<Integer> list = new ArrayList<Integer>();
+        List<Integer> list = new ArrayList<>();
         for (String filterName : headerFilter.getValues()) {
             int idx = names.indexOf(filterName);
             if (idx >= 0)
