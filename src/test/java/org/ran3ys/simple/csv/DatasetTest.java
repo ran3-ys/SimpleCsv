@@ -1,9 +1,9 @@
 package org.ran3ys.simple.csv;
 
 import org.junit.Test;
+import org.ran3ys.simple.csv.filter.HeaderFilter;
+import org.ran3ys.simple.csv.filter.RowFilter;
 
-import javax.xml.crypto.Data;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;

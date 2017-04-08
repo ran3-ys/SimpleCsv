@@ -1,4 +1,4 @@
-package org.ran3ys.simple.csv;
+package org.ran3ys.simple.csv.filter;
 
 import java.util.List;
 

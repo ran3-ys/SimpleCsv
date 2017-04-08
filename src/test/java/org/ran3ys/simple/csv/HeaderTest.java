@@ -1,6 +1,7 @@
 package org.ran3ys.simple.csv;
 
 import org.junit.Test;
+import org.ran3ys.simple.csv.filter.HeaderFilter;
 
 import java.util.Arrays;
 import java.util.List;
